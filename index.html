@@ -1,0 +1,463 @@
+
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>shirostudio | homepage </title>
+    <!-- Google Fonts: Prompt & Sriracha -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&family=Sriracha&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Tailwind CSS (for base utilities and rapid styled layout) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        pastel: {
+                            pink: '#FFE5EC',
+                            'pink-dark': '#FFB3C6',
+                            'pink-deep': '#FB6F92',
+                            yellow: '#FFF0F5',
+                            accent: '#FFE5EC',
+                            cream: '#FFF9FA',
+                            text: '#6C4A4A'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Prompt', 'sans-serif'],
+                        cute: ['Sriracha', 'cursive']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Prompt', sans-serif;
+            background-color: #FFF9FA;
+            color: #6C4A4A;
+            scroll-behavior: smooth;
+        }
+        
+        /* สไตล์พิเศษสำหรับความพาสเทลโค้งมน */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 2px solid #FFE5EC;
+        }
+
+        .bubble-shadow {
+            box-shadow: 0 12px 32px rgba(251, 111, 146, 0.12);
+        }
+
+        .btn-bounce {
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .btn-bounce:hover {
+            transform: scale(1.05) translateY(-2px);
+        }
+
+        /* เอฟเฟกต์ภาพลอยได้แบบนุ่มนวล */
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-12px) rotate(1deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+        .animate-float {
+            animation: float 5s ease-in-out infinite;
+        }
+
+        /* ตกแต่ง Scrollbar ให้เข้าธีม */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FFF9FA;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #FFB3C6;
+            border-radius: 99px;
+        }
+    </style>
+</head>
+<body class="selection:bg-pastel-pink-dark selection:text-pastel-text">
+
+    <!-- Header Section -->
+    <header class="fixed top-0 left-0 right-0 z-50 px-4 py-3 bg-white/80 backdrop-blur-md border-b-2 border-pastel-pink/50 transition-all duration-300">
+        <div class="max-w-5xl mx-auto flex items-center justify-between">
+            <!-- Logo + Shop Name -->
+            <a href="#" class="flex items-center gap-3">
+                <div class="w-12 h-12 rounded-full border-2 border-pastel-pink-dark overflow-hidden bg-pastel-pink flex items-center justify-center bubble-shadow">
+                    <!-- แสดงรูปภาพที่อัปโหลดเป็นโลโก้จิ๋วบน header -->
+                    <img src="image.png" alt="shirostudio Logo" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=120';">
+                </div>
+                <div>
+                    <h1 class="font-cute text-2xl font-bold text-pastel-pink-deep tracking-wider">shirostudio</h1>
+                    <p class="text-xs text-pastel-text/60 font-medium">Commission & Graphics</p>
+                </div>
+            </a>
+
+            <!-- Desktop Menu -->
+            <nav class="hidden md:flex items-center gap-6 font-medium text-pastel-text">
+                <a href="#services" class="hover:text-pastel-pink-deep transition-colors">เรทราคา</a>
+                <a href="#portfolio" class="hover:text-pastel-pink-deep transition-colors">ตัวอย่างงาน</a>
+                <a href="#contact" class="px-5 py-2 bg-pastel-pink-deep text-white rounded-full bubble-shadow btn-bounce text-sm">ติดต่อสอบถาม</a>
+            </nav>
+
+            <!-- Hamburger Button for Mobile -->
+            <button id="menu-btn" class="md:hidden flex items-center justify-center w-10 h-10 rounded-full bg-pastel-pink text-pastel-text hover:bg-pastel-pink-dark transition-colors focus:outline-none" aria-label="เปิดเมนู">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Drawer Menu -->
+        <div id="mobile-menu" class="hidden absolute top-full left-0 right-0 bg-white/95 border-b-2 border-pastel-pink-dark/30 p-5 flex flex-col gap-4 text-center font-medium shadow-lg rounded-b-3xl">
+            <a href="#services" class="py-2 hover:bg-pastel-pink/30 rounded-xl transition-all" onclick="toggleMenu()">เรทราคา</a>
+            <a href="#portfolio" class="py-2 hover:bg-pastel-pink/30 rounded-xl transition-all" onclick="toggleMenu()">ส่องตัวอย่างงาน</a>
+            <a href="#contact" class="py-3 bg-pastel-pink-deep text-white rounded-full bubble-shadow" onclick="toggleMenu()">ติดต่อทางร้าน</a>
+        </div>
+    </header>
+
+    <!-- Hero Section (แบบปรับปรุงให้แสดงภาพที่แนบตรงนี้ตามต้องการ) -->
+    <section class="pt-32 pb-20 px-4 relative overflow-hidden">
+        <!-- Background Elements Decor -->
+        <div class="absolute top-20 left-10 w-16 h-16 bg-pastel-pink-dark/20 rounded-full blur-xl"></div>
+        <div class="absolute bottom-10 right-10 w-24 h-24 bg-pastel-pink/40 rounded-full blur-2xl"></div>
+        
+        <div class="max-w-5xl mx-auto relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left Side: Text and CTA -->
+                <div class="md:col-span-7 text-center md:text-left order-2 md:order-1">
+                    <!-- Cute Greeting Badge -->
+                    <span class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-pastel-pink text-pastel-pink-deep font-semibold text-sm mb-6 border border-pastel-pink-dark/30">
+                        <i data-lucide="sparkles" class="w-4 h-4"></i> graphic design!
+                    </span>
+                    
+                    <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-pastel-text tracking-tight leading-tight mb-6">
+                        welcome to <br>
+                        <span class="text-pastel-pink-deep font-cute text-5xl md:text-6xl">yukishiro</span> studio
+                    </h2>
+                    
+                    <p class="text-base md:text-lg text-pastel-text/80 mb-8 leading-relaxed max-w-xl mx-auto md:mx-0">
+                        รับวาดเอฟเฟกต์ แต่งป้ายกราฟฟิค ทำบล้อค และอื่น ๆ
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row items-center gap-4">
+                        <a href="#services" class="w-full sm:w-auto px-8 py-4 bg-pastel-pink-deep text-white font-bold rounded-2xl bubble-shadow btn-bounce flex items-center justify-center gap-2">
+                            <i data-lucide="shopping-bag" class="w-5 h-5"></i> เข้าสู่ร้าน
+                        </a>
+                        <a href="#portfolio" class="w-full sm:w-auto px-8 py-4 bg-white text-pastel-text font-semibold rounded-2xl border-2 border-pastel-pink-dark/50 hover:bg-pastel-pink/20 transition-all flex items-center justify-center gap-2">
+                            <i data-lucide="folder-heart" class="w-5 h-5"></i> ผลงานทั้งหมด
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right Side: Gorgeous Hero Image (ภาพวาดที่แนบมา) -->
+                <div class="md:col-span-5 flex justify-center order-1 md:order-2">
+                    <div class="relative w-72 h-72 sm:w-80 sm:h-80 md:w-96 md:h-96 animate-float">
+                        <!-- Decorative pink bubble background behind the image -->
+                        <div class="absolute inset-0 bg-gradient-to-tr from-pastel-pink to-pastel-pink-dark rounded-full opacity-60 blur-md scale-95"></div>
+                        
+                        <!-- Beautiful rounded frame for the image -->
+                        <div class="relative w-full h-full rounded-[40px] border-4 border-white overflow-hidden bg-white bubble-shadow p-2">
+                            <img src="image.png" alt="shirostudio Mascot Illustration" class="w-full h-full object-cover rounded-[32px]" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=350';">
+                        </div>
+
+                        <!-- Sparkle Decorations floating around -->
+                        <div class="absolute -top-4 -right-4 bg-white p-2 rounded-full bubble-shadow text-pastel-pink-deep border border-pastel-pink">
+                            <i data-lucide="sparkle" class="w-6 h-6"></i>
+                        </div>
+                        <div class="absolute -bottom-2 -left-4 bg-white p-2.5 rounded-full bubble-shadow text-[#FFEAA7] border border-pastel-pink">
+                            <i data-lucide="heart" class="w-5 h-5 fill-current text-pastel-pink-deep"></i>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Services & Pricing Section -->
+    <section id="services" class="py-16 px-4 bg-gradient-to-b from-white to-pastel-cream">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-12">
+                <h3 class="text-3xl font-bold text-pastel-text mb-3">เรทราคาสินค้าและงานบริการ</h3>
+                <p class="text-pastel-text/70">เลือกแพ็กเกจที่ต้องการแล้วคลิกติดต่อสอบถามได้เลยนะคับบ</p>
+                <div class="w-24 h-1 bg-pastel-pink-deep mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <!-- Price Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Service 1: Chibi Head/Icon -->
+                <div class="glass-card rounded-3xl p-6 flex flex-col justify-between hover:border-pastel-pink-deep/50 transition-all bubble-shadow bg-white/60">
+                    <div>
+                        <div class="w-12 h-12 rounded-2xl bg-pastel-pink/80 flex items-center justify-center text-pastel-pink-deep mb-5">
+                            <i data-lucide="smile" class="w-6 h-6"></i>
+                        </div>
+                        <span class="text-xs font-bold text-pastel-pink-deep tracking-wider uppercase bg-pastel-pink/60 px-2.5 py-1 rounded-full">Popular</span>
+                        <h4 class="text-xl font-bold text-pastel-text mt-3">วาดเอฟเฟกต์ (เอฟเฟกต์ฟุ้งฟิ้ง/ขตต)</h4>
+                        <p class="text-sm text-pastel-text/70 mt-2 mb-6">เหมาะสำหรับนำไปตกแต่งป้ายกราฟฟิค หรือ ปล่อยเช่า</p>
+                        
+                        <ul class="space-y-3 mb-8 text-sm">
+                            <li class="flex items-center gap-2 text-pastel-text/90">
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-pastel-pink-deep"></i> เชิงพาณิชย์
+                            </li>
+                            <li class="flex items-center gap-2 text-pastel-text/90">
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-pastel-pink-deep"></i> ได้รับไฟล์ PNG พื้นหลังโปร่งใส
+                            </li>
+                            <li class="flex items-center gap-2 text-pastel-text/90">
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-pastel-pink-deep"></i> แก้ไขได้ฟรีมีลิมิต
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <div class="border-t border-pastel-pink pt-4 mb-4 flex items-end justify-between">
+                            <span class="text-sm text-pastel-text/60">ราคาเริ่มต้น</span>
+                            <span class="text-2xl font-bold text-pastel-pink-deep">99.- <span class="text-xs text-pastel-text font-normal">/ เซต</span></span>
+                        </div>
+                        <a href="#contact" class="block text-center py-3 bg-pastel-pink-dark hover:bg-pastel-pink-deep hover:text-white text-pastel-text font-semibold rounded-2xl transition-all">สั่งวาดรายการนี้</a>
+                    </div>
+                </div>
+
+                <!-- Service 2: Full Body Commission -->
+                <div class="glass-card rounded-3xl p-6 flex flex-col justify-between hover:border-pastel-pink-deep/50 transition-all bubble-shadow bg-white/90 border-2 !border-pastel-pink-deep/40 relative transform md:-translate-y-2">
+                    <div class="absolute -top-3.5 left-1/2 transform -translate-x-1/2 bg-pastel-pink-deep text-white px-4 py-1 text-xs font-bold rounded-full bubble-shadow tracking-wider">
+                        best seller 🔥
+                    </div>
+                    <div>
+                        <div class="w-12 h-12 rounded-2xl bg-pastel-pink-deep text-white flex items-center justify-center mb-5">
+                            <i data-lucide="user" class="w-6 h-6"></i>
+                        </div>
+                        <span class="text-xs font-bold text-pastel-pink-deep tracking-wider uppercase bg-pastel-pink/60 px-2.5 py-1 rounded-full">Hot Commission</span>
+                        <h4 class="text-xl font-bold text-pastel-text mt-3">ทำบล็อค / เทมเพลต</h4>
+                        <p class="text-sm text-pastel-text/70 mt-2 mb-6">เทมเพลต .ipv / .psd สามารถนำไปลงเช่าได้</p>
+                        
+                        <ul class="space-y-3 mb-8 text-sm">
+                            <li class="flex items-center gap-2 text-pastel-text/90">
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-pastel-pink-deep"></i> สิทธิ์ขาด - ไม่มีกฏ
+                            </li>
+                            <li class="flex items-center gap-2 text-pastel-text/90">
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-pastel-pink-deep"></i> ออกแบบให้ได้ ไม่มีค่าใช้จ่ายเพิ่ม
+                            </li>
+                            <li class="flex items-center gap-2 text-pastel-text/90">
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-pastel-pink-deep"></i> ได้รับภาพแต่ง ( งดแต่งตาม )
+                            </li>
+                            <li class="flex items-center gap-2 text-pastel-text/90">
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-pastel-pink-deep"></i> ได้รับเป็นโฟลเดอร์ไดร์ฟ ( แชร์เมล )
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <div class="border-t border-pastel-pink pt-4 mb-4 flex items-end justify-between">
+                            <span class="text-sm text-pastel-text/60">ราคาเริ่มต้น</span>
+                            <span class="text-3xl font-bold text-pastel-pink-deep">99.- <span class="text-xs text-pastel-text font-normal">/ งาน</span></span>
+                        </div>
+                        <a href="#contact" class="block text-center py-3.5 bg-pastel-pink-deep hover:bg-pastel-pink-deep/90 text-white font-bold rounded-2xl transition-all bubble-shadow">สั่งวาดรายการนี้</a>
+                    </div>
+                </div>
+
+                <!-- Service 3: Graphics Design -->
+                <div class="glass-card rounded-3xl p-6 flex flex-col justify-between hover:border-pastel-pink-deep/50 transition-all bubble-shadow bg-white/60">
+                    <div>
+                        <div class="w-12 h-12 rounded-2xl bg-pastel-pink/80 flex items-center justify-center text-pastel-pink-deep mb-5">
+                            <i data-lucide="palette" class="w-6 h-6"></i>
+                        </div>
+                        <span class="text-xs font-bold text-pastel-pink-deep tracking-wider uppercase bg-pastel-pink/60 px-2.5 py-1 rounded-full">Graphic & Vtuber</span>
+                        <h4 class="text-xl font-bold text-pastel-text mt-3">Graphic Design & ป้าย</h4>
+                        <p class="text-sm text-pastel-text/70 mt-2 mb-6">รับออกแบบป้ายสไตลืน่ารัก หรือ เท่ ๆ เฟี้ยว ๆ</p>
+                        
+                        <ul class="space-y-3 mb-8 text-sm">
+                            <li class="flex items-center gap-2 text-pastel-text/90">
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-pastel-pink-deep"></i> บรีฟได้หมด แต่ห้ามให้เรฟจากงานอื่น
+                            </li>
+                            <li class="flex items-center gap-2 text-pastel-text/90">
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-pastel-pink-deep"></i> เลือกฟ้อนตืหัวข้อได้
+                            </li>
+                            <li class="flex items-center gap-2 text-pastel-text/90">
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-pastel-pink-deep"></i> ส่งไฟล์ทางไดร์ฟ ( มีเวลาเซฟ 60 วัน )
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <div class="border-t border-pastel-pink pt-4 mb-4 flex items-end justify-between">
+                            <span class="text-sm text-pastel-text/60">ราคาเริ่มต้น</span>
+                            <span class="text-2xl font-bold text-pastel-pink-deep">79.- <span class="text-xs text-pastel-text font-normal">/ งาน</span></span>
+                        </div>
+                        <a href="#contact" class="block text-center py-3 bg-pastel-pink-dark hover:bg-pastel-pink-deep hover:text-white text-pastel-text font-semibold rounded-2xl transition-all">สั่งทำรายการนี้</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="py-16 px-4 bg-white">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-12">
+                <h3 class="text-3xl font-bold text-pastel-text mb-3">แกลเลอรีตัวอย่างผลงาน</h3>
+                <p class="text-pastel-text/70">ตัวอย่างงาน! shirostudio</p>
+                <div class="w-24 h-1 bg-pastel-pink-deep mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <!-- Simulated Beautiful Artworks -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+                
+                <!-- Art 1 (Actual Uploaded Image as a Showcase Piece!) -->
+                <div class="group relative overflow-hidden rounded-3xl border-2 border-pastel-pink bubble-shadow aspect-square bg-pastel-pink">
+                    <img src="image.png" alt="shirostudio featured illustration" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=120';">
+                    <div class="absolute inset-0 bg-gradient-to-t from-pastel-text/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5 text-white">
+                        <span class="text-xs text-pastel-pink-dark font-bold uppercase">Featured Art</span>
+                        <h5 class="text-lg font-bold">Mascot Bunny Girl</h5>
+                    </div>
+                </div>
+
+                <!-- Art 2 -->
+                <div class="group relative overflow-hidden rounded-3xl border-2 border-pastel-pink bubble-shadow aspect-square bg-pastel-pink">
+                    <!-- SVG Artwork Dummy 2 -->
+                    <svg viewBox="0 0 200 200" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <rect width="200" height="200" fill="#FFF0F5"/>
+                        <polygon points="100,20 180,180 20,180" fill="#FFE5EC" opacity="0.6"/>
+                        <circle cx="100" cy="115" r="38" fill="#FFF"/>
+                        <ellipse cx="85" cy="70" rx="10" ry="25" fill="#FFF" transform="rotate(-10 85 70)"/>
+                        <ellipse cx="115" cy="70" rx="10" ry="25" fill="#FFF" transform="rotate(10 115 70)"/>
+                        <ellipse cx="85" cy="72" rx="5" ry="18" fill="#FFB3C6" transform="rotate(-10 85 72)"/>
+                        <ellipse cx="115" cy="72" rx="5" ry="18" fill="#FFB3C6" transform="rotate(10 115 72)"/>
+                        <path d="M80 110 Q85 115, 90 110" stroke="#6C4A4A" stroke-width="2" fill="none" stroke-linecap="round"/>
+                        <path d="M110 110 Q115 115, 120 110" stroke="#6C4A4A" stroke-width="2" fill="none" stroke-linecap="round"/>
+                        <circle cx="78" cy="118" r="4" fill="#FB6F92" opacity="0.6"/>
+                        <circle cx="122" cy="118" r="4" fill="#FB6F92" opacity="0.6"/>
+                        <circle cx="100" cy="116" r="3" fill="#FB6F92"/>
+                        <path d="M92 145 C88 141, 100 137, 100 145 C100 137, 112 141, 108 145 Z" fill="#FFEAA7"/>
+                    </svg>
+                    <div class="absolute inset-0 bg-gradient-to-t from-pastel-text/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5 text-white">
+                        <span class="text-xs text-pastel-pink-dark font-bold uppercase">Icon</span>
+                        <h5 class="text-lg font-bold">Dreamy Bunny Icon</h5>
+                    </div>
+                </div>
+
+                <!-- Art 3 -->
+                <div class="group relative overflow-hidden rounded-3xl border-2 border-pastel-pink bubble-shadow aspect-square bg-pastel-pink">
+                    <!-- SVG Artwork Dummy 3 -->
+                    <svg viewBox="0 0 200 200" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <rect width="200" height="200" fill="#FFF9FA"/>
+                        <path d="M30 30 L35 38 L44 38 L37 43 L40 51 L30 46 L20 51 L23 43 L16 38 L25 38 Z" fill="#FFEAA7" opacity="0.8"/>
+                        <path d="M160 140 L163 145 L169 145 L164 148 L166 154 L160 151 L154 154 L156 148 L151 145 L157 145 Z" fill="#FFEAA7" opacity="0.8"/>
+                        <circle cx="100" cy="100" r="45" fill="#FFEAA7" opacity="0.7"/>
+                        <circle cx="70" cy="65" r="15" fill="#FFEAA7" opacity="0.7"/>
+                        <circle cx="130" cy="65" r="15" fill="#FFEAA7" opacity="0.7"/>
+                        <circle cx="70" cy="65" r="8" fill="#FFF"/>
+                        <circle cx="130" cy="65" r="8" fill="#FFF"/>
+                        <circle cx="100" cy="105" r="15" fill="#FFF"/>
+                        <ellipse cx="100" cy="98" rx="4" ry="3" fill="#6C4A4A"/>
+                        <path d="M96 104 Q100 108, 104 104" stroke="#6C4A4A" stroke-width="1.8" fill="none"/>
+                        <path d="M78 95 L88 95" stroke="#6C4A4A" stroke-width="2.5" stroke-linecap="round"/>
+                        <path d="M112 95 L122 95" stroke="#6C4A4A" stroke-width="2.5" stroke-linecap="round"/>
+                    </svg>
+                    <div class="absolute inset-0 bg-gradient-to-t from-pastel-text/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5 text-white">
+                        <span class="text-xs text-pastel-pink-dark font-bold uppercase">Graphic Design</span>
+                        <h5 class="text-lg font-bold">Bear Logo & Branding</h5>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Call to Drive Button -->
+            <div class="text-center">
+                <a href="https://drive.google.com" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-3 px-8 py-4 bg-pastel-yellow border-2 border-pastel-pink-dark hover:border-pastel-pink-deep text-pastel-text font-bold rounded-2xl bubble-shadow btn-bounce">
+                    <i data-lucide="external-link" class="w-5 h-5 text-pastel-pink-deep"></i>
+                    คลิกเพื่อเปิดดูผลงานทั้งหมดบน Google Drive 📂
+                </a>
+                <p class="text-xs text-pastel-text/60 mt-3">รวมตัวอย่างทั้งหมดดูในไดร์ฟเลยคับบ</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 px-4 bg-gradient-to-b from-pastel-cream to-pastel-pink/30 relative">
+        <div class="max-w-3xl mx-auto text-center">
+            <div class="w-20 h-20 mx-auto rounded-full bg-white flex items-center justify-center border-2 border-pastel-pink-dark bubble-shadow mb-6">
+                <i data-lucide="message-circle" class="w-10 h-10 text-pastel-pink-deep"></i>
+            </div>
+            
+            <h3 class="text-3xl font-bold text-pastel-text mb-4">สนใจสั่งงานทักที่ไหนน ?</h3>
+            <p class="text-pastel-text/80 max-w-md mx-auto mb-8">
+                ทักไลน์ออฟได้เลยคับ หากไม่ตอบลองจิ้มริชเมนูทักเฟสอีกทีนะคับ
+            </p>
+
+            <!-- Line QR / Add Line Button Container -->
+            <div class="bg-white/80 p-6 rounded-3xl border-2 border-pastel-pink max-w-md mx-auto bubble-shadow">
+                <!-- Mock QR Code by CSS -->
+                <div class="w-36 h-36 bg-gray-50 border-4 border-pastel-pink-dark rounded-2xl mx-auto mb-6 flex flex-col items-center justify-center p-2 relative">
+                    <!-- Cute QR Mockup -->
+                    <div class="grid grid-cols-4 gap-1 w-full h-full opacity-70">
+                        <div class="bg-pastel-text rounded-sm"></div><div class="bg-pastel-text rounded-sm"></div><div class="bg-transparent"></div><div class="bg-pastel-text rounded-sm"></div>
+                        <div class="bg-transparent"></div><div class="bg-pastel-text rounded-sm"></div><div class="bg-pastel-text rounded-sm"></div><div class="bg-transparent"></div>
+                        <div class="bg-pastel-text rounded-sm"></div><div class="bg-transparent"></div><div class="bg-pastel-text rounded-sm"></div><div class="bg-pastel-text rounded-sm"></div>
+                        <div class="bg-pastel-text rounded-sm"></div><div class="bg-pastel-text rounded-sm"></div><div class="bg-transparent"></div><div class="bg-pastel-text rounded-sm"></div>
+                    </div>
+                    <!-- Absolute Logo in center -->
+                    <div class="absolute w-8 h-8 rounded-full bg-white flex items-center justify-center border border-pastel-pink shadow">
+                        <div class="w-4 h-4 bg-pastel-pink-deep rounded-full"></div>
+                    </div>
+                </div>
+
+                <!-- Green Line Button -->
+                <a href="https://lin.ee/74yvmcE" target="_blank" rel="noopener noreferrer" class="w-full py-4 bg-[#06C755] hover:bg-[#05b34c] text-white font-bold rounded-2xl bubble-shadow btn-bounce flex items-center justify-center gap-3">
+                    <!-- Custom SVG Line Icon -->
+                    <svg viewBox="0 0 24 24" class="w-6 h-6 fill-current">
+                        <path d="M24 10.304c0-5.234-5.385-9.5-12-9.5s-12 4.266-12 9.5c0 4.69 4.273 8.621 10.044 9.393.391.084.924.258 1.058.593.121.304.079.781.039 1.09l-.173 1.042c-.053.313-.255 1.228 1.1 1.228 1.255 0 6.772-3.985 9.233-6.822 2.457-2.83 2.699-5.3 2.699-6.526zm-16.733 3.82c-.105 0-.191-.086-.191-.191v-4.471c0-.105.086-.191.191-.191h.431c.105 0 .191.086.191.191v3.849h2.339c.105 0 .191.086.191.191v.431c0 .105-.086.191-.191.191h-2.962zm3.921-.191c0 .105-.086.191-.191.191h-.431c-.105 0-.191-.086-.191-.191v-4.471c0-.105.086-.191.191-.191h.431c.105 0 .191.086.191.191v4.471zm4.185 0c0 .105-.086.191-.191.191h-.414c-.083 0-.158-.053-.183-.132l-2.008-3.093v3.034c0 .105-.086.191-.191.191h-.431c-.105 0-.191-.086-.191-.191v-4.471c0-.105.086-.191.191-.191h.413c.083 0 .158.053.183.132l2.009 3.093v-3.034c0-.105.086-.191.191-.191h.431c.105 0 .191.086.191.191v4.471zm4.272-3.235c.105 0 .191.086.191.191v.431c0 .105-.086.191-.191.191h-2.147v1.01h2.147c.105 0 .191.086.191.191v.431c0 .105-.086.191-.191.191h-2.769c-.105 0-.191-.086-.191-.191v-4.471c0-.105.086-.191.191-.191h2.769c.105 0 .191.086.191.191v.431c0 .105-.086.191-.191.191h-2.147v1.01h2.147z"/>
+                    </svg>
+                    เพิ่มเพื่อนและสั่งซื้อทาง LINE
+                </a>
+                <span class="text-xs text-pastel-text/50 block mt-3">LINE ID: @658ttrvf (มี @ น้า)</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="bg-pastel-pink py-10 px-4 text-center border-t border-pastel-pink-dark/30">
+        <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="text-left">
+                <span class="font-cute text-2xl font-bold text-pastel-pink-deep">shirostudio</span>
+                <p class="text-sm text-pastel-text/70 mt-1"></p>
+            </div>
+            
+            <p class="text-xs text-pastel-text/60">
+                &copy; ตอบเร็วตลอด <br class="md:hidden"> ถ้าตอบช้าคือติดเรียนนะคับ
+            </p>
+        </div>
+    </footer>
+
+    <!-- Hamburger Script -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = menuBtn.querySelector('i');
+
+        menuBtn.addEventListener('click', () => {
+            toggleMenu();
+        });
+
+        function toggleMenu() {
+            mobileMenu.classList.toggle('hidden');
+            // Toggle icon menu / close
+            if (mobileMenu.classList.contains('hidden')) {
+                menuBtn.innerHTML = '<i data-lucide="menu" class="w-6 h-6"></i>';
+            } else {
+                menuBtn.innerHTML = '<i data-lucide="x" class="w-6 h-6"></i>';
+            }
+            lucide.createIcons();
+        }
+    </script>
+</body>
+</html>
